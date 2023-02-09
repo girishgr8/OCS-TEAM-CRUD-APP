@@ -1,0 +1,21 @@
+.env
+# dependencies
+/node_modules
+/crudapp/node_modules/
+
+# testing
+/crudapp/coverage
+
+# production
+/crudapp/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+/crudapp/npm-debug.log*
+/crudapp/yarn-debug.log*
+/crudapp/yarn-error.log*
