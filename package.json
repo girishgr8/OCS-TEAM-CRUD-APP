@@ -9,6 +9,7 @@
     "server": "nodemon server.js",
     "client": "npm start --prefix crudapp",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "cd crudapp && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Girish Thatte",

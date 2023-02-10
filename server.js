@@ -8,6 +8,11 @@ require("dotenv").config({ path: __dirname + "/.env" });
 
 const app = express();
 
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "/public")));
+
 // axios.get(`https://gorest.co.in/public/v2/users`)
 //     .then(resp => {
 //         for (let i = 0; i < resp.data.length; i++) {
@@ -20,12 +25,20 @@ const app = express();
 //         }
 //     }).catch(err => console.log("Error to fetch data\n"));
 
+// const db = mysql.createConnection({
+//   host: process.env["DATABASE_HOST"],
+//   user: process.env["DATABASE_USER"],
+//   password: process.env["DATABASE_PSWD"],
+//   database: process.env["DATABASE_NAME"],
+//   port: process.env["DATABASE_PORT"],
+// });
+
 const db = mysql.createConnection({
-  host: process.env["DATABASE_HOST"],
-  user: process.env["DATABASE_USER"],
-  password: process.env["DATABASE_PSWD"],
-  database: process.env["DATABASE_NAME"],
-  port: process.env["DATABASE_PORT"],
+  host: "sql12.freemysqlhosting.net",
+  user: "sql12596882",
+  password: "dkNnCf8cmH",
+  database: "sql12596882",
+  port: 3306,
 });
 
 db.connect((err) => {
@@ -35,26 +48,26 @@ db.connect((err) => {
     //     if (err) console.log(dberr);
     //     console.log("Database created");
     // });
-    const sqlCreateTable = `CREATE TABLE users (
-                                id INT NOT NULL, 
-                                name VARCHAR(255), 
-                                email VARCHAR(255), 
-                                gender VARCHAR(6), 
-                                status VARCHAR(8),
-                                PRIMARY KEY (id))`;
-    db.query(sqlCreateTable, (qryerr, qryres) => {
-      if (qryerr && qryerr.errno != 1050) console.log(qryerr);
-      else if (qryres) console.log(qryres);
-    });
+    // const sqlCreateTable = `CREATE TABLE users (
+    //                             id INT NOT NULL,
+    //                             name VARCHAR(255),
+    //                             email VARCHAR(255),
+    //                             gender VARCHAR(6),
+    //                             status VARCHAR(8),
+    //                             PRIMARY KEY (id))`;
+    // db.query(sqlCreateTable, (qryerr, qryres) => {
+    //   if (qryerr && qryerr.errno != 1050) console.log(qryerr);
+    //   else if (qryres) console.log(qryres);
+    // });
   } else {
     console.log(err);
     console.log("Could not connect to MYSQL database");
   }
 });
 
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "/crudapp/build", "index.html"));
+// });
 
 app.get("/", (req, res) => {
   res.send("Hello from 'Office of Career Services(OCS)' Team");
@@ -94,7 +107,7 @@ app.post("/api/addUser", (req, res) => {
         values(${maxid + 1}, '${name}', '${email}', '${gender}', '${status}')`;
     db.query(sqlInsert, (qryerrIns, qryresIns) => {
       if (qryerrIns) console.log(qryerrIns);
-    //   else console.log(qryresIns);
+      //   else console.log(qryresIns);
     });
     return res.send("status : Success");
   });
@@ -114,7 +127,6 @@ app.delete("/api/deleteUser/:id", (req, res) => {
 // route which handles updating single user
 app.put("/api/updateUser/:id", (req, res) => {
   const { id } = req.params;
-  console.log("id = ", id);
   const { name, email, gender, status } = req.body;
   const sqlUpdate = `UPDATE users SET name = '${name}', email = '${email}', gender = '${gender}', status = '${status}' WHERE id =  ${id}`;
   db.query(sqlUpdate, (qryerr, qryres) => {
@@ -125,4 +137,6 @@ app.put("/api/updateUser/:id", (req, res) => {
 });
 
 const port = process.env.PORT || 4000;
-app.listen(port, () => console.log(`Server started on port ${port}`));
+app.listen(port, "192.168.64.3", () =>
+  console.log(`Server started on port ${port}`)
+);

@@ -63,7 +63,7 @@ const Home = (props) => {
   const [data, setData] = useState([]);
 
   const loadData = async () => {
-    const resp = await axios.get("http://localhost:4000/api/getAllUsers");
+    const resp = await axios.get("/api/getAllUsers");
     setData(resp.data);
   };
 
