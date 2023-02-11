@@ -32,7 +32,7 @@ const defaultRow = {
   name: "",
   email: "",
   gender: "",
-  status: ""
+  status: "",
 };
 
 const Home = (props) => {
@@ -50,9 +50,7 @@ const Home = (props) => {
         toast.success(`User "${row.name}" deleted successfully !`);
         setTimeout(() => loadData(), 500);
       }
-      console.log(res);
     });
-    console.log(row);
     setConfirm(false);
   };
 
@@ -88,7 +86,6 @@ const Home = (props) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               CRUD APP for OCS TEAM
             </Typography>
-            {/* <Button color="inherit">Login</Button> */}
           </Toolbar>
         </AppBar>
       </Box>
@@ -186,11 +183,6 @@ const Home = (props) => {
                   <TableCell align="right">{row.gender}</TableCell>
                   <TableCell align="right">{row.status}</TableCell>
                   <TableCell align="right">
-                    {/* <Link to={`/view/${row.id}`}>
-                      <IconButton aria-label="view">
-                        <RemoveRedEye color="primary"/>
-                      </IconButton>
-                    </Link> */}
                     <Link to={`/addEditUser/${row.id}`}>
                       <IconButton aria-label="editUser">
                         <Edit color="secondary" />
@@ -214,12 +206,17 @@ const Home = (props) => {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title" fontSize={18} fontWeight={"bold"} color={"red"}>
+          <DialogTitle
+            id="alert-dialog-title"
+            fontSize={18}
+            fontWeight={"bold"}
+            color={"red"}
+          >
             {`Are you sure?`}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-            {`User '${row.name}' will be deleted !`}
+              {`User '${row.name}' will be deleted !`}
             </DialogContentText>
           </DialogContent>
           <DialogActions>

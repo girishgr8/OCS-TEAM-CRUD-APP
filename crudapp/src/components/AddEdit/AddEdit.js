@@ -40,7 +40,6 @@ const AddEdit = () => {
         .get(`/api/getUser/${id}`)
         .then((res) => {
           setFormValues({ ...res.data[0] });
-          console.log(res);
         })
         .catch((err) => {
           console.log(err);
@@ -50,7 +49,6 @@ const AddEdit = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setFormValues({
       ...formValues,
       [name]: value,
@@ -77,7 +75,6 @@ const AddEdit = () => {
         setTimeout(() => navigate("/"), 500);
       });
     }
-    console.log(formValues);
   };
 
   return (
