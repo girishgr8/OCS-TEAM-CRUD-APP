@@ -6,9 +6,19 @@
 2. **NodeJS** for Backend and **ExpressJS** as Middleware.
 3. **Material UI** for styling.
 
+<h2>About:</h2>
+
+OCS TEAM CRUD APP is a full stack application developed using MERN stack (here I used MySQL instead of MongoDB), which does basic CRUD operation like ADD, UPDATE and DELETE on the user details. The project is deployed using Nginx webserver and the webserver has SSL certificates installed in it which will be sent when some user connects over HTTPS.
+
 ## Quick Start
 
-Clone the repository and do following:
+Clone the repository
+
+```bash
+git clone https://github.com/girishgr8/OCS-TEAM-CRUD-APP.git
+```
+
+Now, follow the steps below to run the application on your local machine:
 
 ```bash
 # Install dependencies for server
@@ -51,7 +61,10 @@ npm run crudapp
 ### 3. Delete User
 ![Delete User](https://github.com/girishgr8/OCS-TEAM-CRUD-APP/blob/main/demo/DeleteUser.gif)
 
-**This project was developed to make best use of time during Covid-19 Lockdown and explore Chart.js library, API calls and SlackBot Integration**
+**This project was developed for selection to OCS Technical Manager Post during my M.Tech at IIT Hyderabad in less than 2 days**
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/girishgr8/OCS-TEAM-CRUD-APP/blob/main/LICENSE) file for details
+
+
+<h3 align="center"><b>Developed with :heart: by Girish Thatte</b></h1>
