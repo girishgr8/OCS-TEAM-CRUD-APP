@@ -59,7 +59,6 @@ const AddEdit = () => {
         .get(`/api/getUser/${id}`)
         .then((res) => {
           setFormValues({ ...res.data[0] });
-          console.log(res);
         })
         .catch((err) => {
           console.log(err);
@@ -69,7 +68,6 @@ const AddEdit = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setFormValues({
       ...formValues,
       [name]: value,
@@ -101,7 +99,6 @@ const AddEdit = () => {
         });
       }
     }
-    console.log(formValues);
   };
 
   return (
@@ -127,7 +124,6 @@ const AddEdit = () => {
             <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
               CRUD APP for OCS TEAM
             </Typography>
-            {/* <Button color="inherit">Login</Button> */}
           </Toolbar>
         </AppBar>
       </Box>
