@@ -50,3 +50,8 @@ npm run crudapp
 
 ### 3. Delete User
 ![Delete User](https://github.com/girishgr8/OCS-TEAM-CRUD-APP/blob/main/demo/DeleteUser.gif)
+
+**This project was developed to make best use of time during Covid-19 Lockdown and explore Chart.js library, API calls and SlackBot Integration**
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/girishgr8/OCS-TEAM-CRUD-APP/blob/main/LICENSE) file for details
