@@ -6,7 +6,7 @@
 2. **NodeJS** for Backend and **ExpressJS** as Middleware.
 3. **Material UI** for styling.
 
-<h2>About:</h2>
+## About
 
 OCS TEAM CRUD APP is a full stack application developed using MERN stack (here I used MySQL instead of MongoDB), which does basic CRUD operation like ADD, UPDATE and DELETE on the user details. The project is deployed using Nginx webserver and the webserver has SSL certificates installed in it which will be sent when some user connects over HTTPS.
 
@@ -65,6 +65,5 @@ npm run crudapp
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/girishgr8/OCS-TEAM-CRUD-APP/blob/main/LICENSE) file for details
-
 
 <h3 align="center"><b>Developed with :heart: by Girish Thatte</b></h1>
