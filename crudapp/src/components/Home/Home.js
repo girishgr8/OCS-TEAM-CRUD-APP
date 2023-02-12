@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import { toast } from "react-toastify";
-import axios from "axios";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -61,7 +60,7 @@ const Home = (props) => {
   const [data, setData] = useState([]);
 
   const loadData = async () => {
-    const resp = await axios.get("/api/getAllUsers");
+    const resp = await axiosInstance.get("/api/getAllUsers");
     setData(resp.data);
   };
 

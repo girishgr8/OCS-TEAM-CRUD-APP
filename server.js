@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const mysql = require("mysql2");
 const cors = require("cors");
-const axios = require("axios");
 require("dotenv").config({ path: __dirname + "/.env" });
 
 const app = express();
