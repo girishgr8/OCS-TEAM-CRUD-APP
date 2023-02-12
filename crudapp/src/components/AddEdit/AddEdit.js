@@ -19,6 +19,11 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const defaultValues = {
   name: "",
@@ -33,6 +38,20 @@ const AddEdit = () => {
 
   const [formValues, setFormValues] = useState(defaultValues);
   const { name, email, gender, status } = formValues;
+  const [confirm, setConfirm] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setConfirm(true);
+  };
+
+  const handleConfirmYes = () => {
+    setTimeout(() => navigate("/"), 500);
+    setConfirm(false);
+  };
+
+  const handleConfirmClose = () => {
+    setConfirm(false);
+  };
 
   useEffect(() => {
     if (id) {
@@ -40,6 +59,7 @@ const AddEdit = () => {
         .get(`/api/getUser/${id}`)
         .then((res) => {
           setFormValues({ ...res.data[0] });
+          console.log(res);
         })
         .catch((err) => {
           console.log(err);
@@ -49,6 +69,7 @@ const AddEdit = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setFormValues({
       ...formValues,
       [name]: value,
@@ -68,17 +89,29 @@ const AddEdit = () => {
         })
         .catch((err) => console.log(err));
     } else {
-      axiosInstance.post("/api/addUser", formValues).then((res) => {
-        if (res.status === 200) {
-          toast.success(`User '${formValues.name}' added successfully`);
-        }
-        setTimeout(() => navigate("/"), 500);
-      });
+      const { name, email, gender, status } = formValues;
+      if (!name || !email || !gender || !status) {
+        toast.warn("Please specify all the required fields");
+      } else {
+        axiosInstance.post("/api/addUser", formValues).then((res) => {
+          if (res.status === 200) {
+            toast.success(`User '${formValues.name}' added successfully`);
+          }
+          setTimeout(() => navigate("/"), 500);
+        });
+      }
     }
+    console.log(formValues);
   };
 
   return (
-    <div>
+    <div
+      style={{
+        minHeight: "100vh",
+        minWidth: "100vw",
+        backgroundColor: "#D2F4FB",
+      }}
+    >
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
@@ -91,7 +124,7 @@ const AddEdit = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
               CRUD APP for OCS TEAM
             </Typography>
             {/* <Button color="inherit">Login</Button> */}
@@ -173,14 +206,14 @@ const AddEdit = () => {
               </Grid>
 
               <Grid item>
-                <FormControl style={{ flexDirection: "row" }}>
+                <FormControl required style={{ flexDirection: "row" }}>
                   <FormLabel style={{ marginTop: "10px", marginRight: "10px" }}>
                     Status
                   </FormLabel>
                   <Select
-                    name="status"
                     required
-                    value={status || "active"}
+                    name="status"
+                    value={status}
                     onChange={handleInputChange}
                   >
                     <MenuItem key="active" value="active">
@@ -192,17 +225,66 @@ const AddEdit = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Button
-                style={{ marginTop: "2%" }}
-                variant="contained"
-                color="primary"
-                type="submit"
+              <Grid
+                marginTop={2}
+                marginBottom={2}
+                style={{
+                  justifyItems: "center",
+                  justifyContent: "space-evenly",
+                }}
               >
-                {id ? "Update" : "Add"}
-              </Button>
+                <Button
+                  style={{
+                    marginTop: "2%",
+                    minWidth: "90px",
+                    marginRight: "20px",
+                  }}
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
+                  {id ? "Update" : "Add"}
+                </Button>
+                <Button
+                  style={{ marginTop: "2%", minWidth: "80px" }}
+                  variant="contained"
+                  color="warning"
+                  onClick={handleClickOpen}
+                >
+                  Cancel
+                </Button>
+              </Grid>
             </Grid>
           </form>
         </Card>
+        <Dialog
+          open={confirm}
+          onClose={handleConfirmClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle
+            id="alert-dialog-title"
+            fontSize={18}
+            fontWeight={"bold"}
+            color={"red"}
+          >
+            {`Are you sure?`}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {id
+                ? `Your edited changes for user ${name} will be not updated !`
+                : `New user ${name} will not be added !`}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleConfirmClose}>No</Button>
+            <Button onClick={handleConfirmYes} autoFocus>
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Container>
     </div>
   );

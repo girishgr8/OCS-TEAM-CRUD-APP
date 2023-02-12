@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "https://ocsteam.in/",
+	baseURL: "https://ocsteam.in/"
 });

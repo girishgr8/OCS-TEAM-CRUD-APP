@@ -45,12 +45,16 @@ const Home = (props) => {
   };
 
   const handleConfirmYes = () => {
-    axiosInstance.delete(`/api/deleteUser/${row.id}`).then((res) => {
-      if (res.status === 200) {
-        toast.success(`User "${row.name}" deleted successfully !`);
-        setTimeout(() => loadData(), 500);
-      }
-    });
+    axiosInstance
+      .delete(`/api/deleteUser/${row.id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success(`User "${row.name}" deleted successfully !`);
+          setTimeout(() => loadData(), 500);
+        }
+        console.log(res);
+      });
+    console.log(row);
     setConfirm(false);
   };
 
@@ -70,7 +74,13 @@ const Home = (props) => {
   }, []);
 
   return (
-    <div>
+    <div
+      style={{
+        minHeight: "100vh",
+        minWidth: "100vw",
+        backgroundColor: "#D2F4FB",
+      }}
+    >
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
@@ -86,6 +96,7 @@ const Home = (props) => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               CRUD APP for OCS TEAM
             </Typography>
+            {/* <Button color="inherit">Login</Button> */}
           </Toolbar>
         </AppBar>
       </Box>
@@ -183,6 +194,11 @@ const Home = (props) => {
                   <TableCell align="right">{row.gender}</TableCell>
                   <TableCell align="right">{row.status}</TableCell>
                   <TableCell align="right">
+                    {/* <Link to={`/view/${row.id}`}>
+                      <IconButton aria-label="view">
+                        <RemoveRedEye color="primary"/>
+                      </IconButton>
+                    </Link> */}
                     <Link to={`/addEditUser/${row.id}`}>
                       <IconButton aria-label="editUser">
                         <Edit color="secondary" />

@@ -12,6 +12,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "/public")));
 
+// axios.get(`https://gorest.co.in/public/v2/users`)
+//     .then(resp => {
+//         for (let i = 0; i < resp.data.length; i++) {
+//             const { id, name, email, gender, status } = resp.data[i];
+//             const sqlInsert = `INSERT INTO users(id, name, email, gender, status) values(${id}, '${name}', '${email}', '${gender}', '${status}')`;
+//             db.query(sqlInsert, (qryerr, qryres) => {
+//                 if (qryerr && qryerr.errno != 1062) console.log(qryerr);
+//                 else console.log(qryres);
+//             });
+//         }
+//     }).catch(err => console.log("Error to fetch data\n"));
+
+// const db = mysql.createConnection({
+//   host: process.env["DATABASE_HOST"],
+//   user: process.env["DATABASE_USER"],
+//   password: process.env["DATABASE_PSWD"],
+//   database: process.env["DATABASE_NAME"],
+//   port: process.env["DATABASE_PORT"],
+// });
+
 const db = mysql.createConnection({
   host: "sql12.freemysqlhosting.net",
   user: "sql12596882",
@@ -23,11 +43,30 @@ const db = mysql.createConnection({
 db.connect((err) => {
   if (!err) {
     console.log("Connected to MYSQL database");
+    // db.query("CREATE DATABASE crudapp", function (dberr, dbres) {
+    //     if (err) console.log(dberr);
+    //     console.log("Database created");
+    // });
+    // const sqlCreateTable = `CREATE TABLE users (
+    //                             id INT NOT NULL,
+    //                             name VARCHAR(255),
+    //                             email VARCHAR(255),
+    //                             gender VARCHAR(6),
+    //                             status VARCHAR(8),
+    //                             PRIMARY KEY (id))`;
+    // db.query(sqlCreateTable, (qryerr, qryres) => {
+    //   if (qryerr && qryerr.errno != 1050) console.log(qryerr);
+    //   else if (qryres) console.log(qryres);
+    // });
   } else {
     console.log(err);
     console.log("Could not connect to MYSQL database");
   }
 });
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "/crudapp/build", "index.html"));
+// });
 
 app.get("/", (req, res) => {
   res.send("Hello from 'Office of Career Services(OCS)' Team");
@@ -64,7 +103,6 @@ app.post("/api/addUser", (req, res) => {
         values(${maxid + 1}, '${name}', '${email}', '${gender}', '${status}')`;
     db.query(sqlInsert, (qryerrIns, qryresIns) => {
       if (qryerrIns) console.log(qryerrIns);
-      //   else console.log(qryresIns);
     });
     return res.send("status : Success");
   });
