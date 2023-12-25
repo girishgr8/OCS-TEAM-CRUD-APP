@@ -15,7 +15,10 @@
 .env.development.local
 .env.test.local
 .env.production.local
+automate.js
 
 /crudapp/npm-debug.log*
 /crudapp/yarn-debug.log*
 /crudapp/yarn-error.log*
+
+ca.pem

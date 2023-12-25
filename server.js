@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const mysql = require("mysql2");
 const cors = require("cors");
+const fs = require("fs");
 require("dotenv").config({ path: __dirname + "/.env" });
 
 const app = express();
@@ -18,6 +19,9 @@ const db = mysql.createConnection({
   password: process.env["DATABASE_PSWD"],
   database: process.env["DATABASE_NAME"],
   port: process.env["DATABASE_PORT"],
+  ssl: {
+    ca: process.env["CA_PEM"],
+  },
 });
 
 db.connect((err) => {
@@ -55,6 +59,7 @@ app.get("/api/getUser/:id", (req, res) => {
 // route which handles adding single new user
 app.post("/api/addUser", (req, res) => {
   const { name, email, gender, status } = req.body;
+  const createTable = 'CREATE TABLE'
   const sqlGetMaxId = `SELECT MAX(id) AS maxid FROM users`;
   let maxid = null;
   db.query(sqlGetMaxId, (qryerr, qryres) => {
