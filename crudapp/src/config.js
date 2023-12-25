@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000/"
+  baseURL: "https://ocs-team-crud-app-backend.onrender.com"
 });
